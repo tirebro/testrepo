@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom Select Component</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Select Component with Custom Value</h1>
+    <div id="selectContainer">
+      <select class="custom-select" id="customSelect">
+        <option selected>Open this select menu</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+      <button class="btn btn-primary mt-2" id="addCustomValueBtn">Add Custom Value</button>
+    </div>
+    <div id="customInputContainer" style="display: none;">
+      <input type="text" class="form-control" id="customValueInput" placeholder="Enter custom value">
+      <button class="btn btn-success mt-2" id="saveCustomValueBtn">Save Custom Value</button>
+    </div>
+  </div>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#addCustomValueBtn").click(function() {
+        $("#selectContainer").hide();
+        $("#customInputContainer").show();
+      });
+
+      $("#saveCustomValueBtn").click(function() {
+        const customValue = $("#customValueInput").val();
+        const existingOption = $("#customSelect option[value='" + customValue + "']");
+
+        if (customValue !== "" && existingOption.length === 0) {
+          const newOption = $("<option></option>").attr("value", customValue).text(customValue);
+          $("#customSelect").append(newOption);
+          $("#customSelect").val(customValue);
+        }
+
+        $("#selectContainer").show();
+        $("#customInputContainer").hide();
+      });
+    });
+  </script>
+</body>
+</html>
